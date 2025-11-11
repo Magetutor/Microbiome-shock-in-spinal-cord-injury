@@ -28,7 +28,6 @@ Typical workflow inside a script:
 Scripts reference the following packages (install all that you need):
 
 - tidyverse (ggplot2, dplyr, tidyr, readr, tibble, stringr)
-- ggplot2
 - cowplot, gridExtra
 - pheatmap
 - data.table
@@ -37,7 +36,6 @@ Scripts reference the following packages (install all that you need):
 - reshape2
 - vegan
 - ggprism
-- gground (custom or external — confirm availability)
 - gghalves
 - circlize
 - export
@@ -47,7 +45,7 @@ Scripts reference the following packages (install all that you need):
 - GSVA (Bioconductor)
 - GSEABase (Bioconductor)
 
-Note: `clusterProfiler`, `GSVA`, and `GSEABase` are Bioconductor packages. Some packages (e.g., `gground`) may be private/custom — confirm source or replace if unavailable.
+Note: `clusterProfiler`, `GSVA`, and `GSEABase` are Bioconductor packages. 
 
 ## 🛠️ Install suggested packages (R)
 
@@ -105,5 +103,6 @@ This repository is licensed under the Creative Commons Attribution 4.0 Internati
 You can find the full license text in the `LICENSE` file at the repository root.
 
 Copyright (c) 2025 [Feng Lab] 
+
 
 
