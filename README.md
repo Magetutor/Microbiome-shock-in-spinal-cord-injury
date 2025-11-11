@@ -102,7 +102,8 @@ This repository is licensed under the Creative Commons Attribution 4.0 Internati
 
 You can find the full license text in the `LICENSE` file at the repository root.
 
-Copyright (c) 2025 [Feng Lab] 
+Copyright (c) 2025 Magetutor. 
+
 
 
 
