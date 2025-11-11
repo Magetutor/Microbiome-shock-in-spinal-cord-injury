@@ -94,7 +94,7 @@ Alternatively open the script in RStudio and run interactively (recommended for 
 
 ## ✉️ Contact & contribution
 
-If you want to contribute or need help reproducing a figure, please open an issue or contact the authors (202421075@mail.sdu.edu.cn).
+If you want to contribute or need help reproducing a figure, please open an issue or contact the authors (magic.mage0001@gmail.com).
 
 ## 📄 License
 
@@ -103,6 +103,7 @@ This repository is licensed under the Creative Commons Attribution 4.0 Internati
 You can find the full license text in the `LICENSE` file at the repository root.
 
 Copyright (c) 2025 Magetutor. 
+
 
 
 
