@@ -72,16 +72,16 @@ webshot::install_phantomjs()
 
 If a package is not on CRAN (e.g. `gground`), contact the repository owner or replace the functions with available equivalents.
 
-## ▶️ How to run a single script (PowerShell)
+## ▶️ How to run a single script 
 
 From the repository root you can run an individual script with `Rscript`:
 
 ```powershell
 # Example: run the Figure1 B script
-Rscript .\scripts\Figure1\B.R
+Rscript ./Figure1/B.R
 
 # Example: run Figure2 A
-Rscript .\scripts\Figure2\A.R
+Rscript ./Figure2/A.R
 ```
 
 Alternatively open the script in RStudio and run interactively (recommended for debugging and inspecting intermediate objects).
@@ -105,4 +105,5 @@ This repository is licensed under the Creative Commons Attribution 4.0 Internati
 You can find the full license text in the `LICENSE` file at the repository root.
 
 Copyright (c) 2025 [Feng Lab] 
+
 
