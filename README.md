@@ -12,7 +12,7 @@ Our research reveals that SCI triggers a cascade of systemic dysfunctions, impac
   - `Supplementary Figure 2/` — Supplementary Figure 2 scripts
   - `Supplementary Figure 3/` — Supplementary Figure 3 scripts
 
-Each script is a standalone R script (e.g. `A.R`, `B.R`, `C.R`).
+Each script is a standalone R script (e.g. `A.R`, `B.R`).
 
 ## ✨ What the scripts do
 
@@ -103,6 +103,7 @@ This repository is licensed under the Creative Commons Attribution 4.0 Internati
 You can find the full license text in the `LICENSE` file at the repository root.
 
 Copyright (c) 2025 Magetutor. 
+
 
 
 
