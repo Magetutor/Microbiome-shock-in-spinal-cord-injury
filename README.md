@@ -2,7 +2,7 @@
 
 Welcome! This repository contains R scripts used to generate figures (main figures and supplementary figures) for the manuscript: *Spinal Cord Injury Triggers Acute Microbiome Shock and System-Wide Transcriptomic Reprogramming*. The scripts live in the each folder.
 
-Our research reveals that SCI triggers a cascade of systemic dysfunctions, impacting organs far beyond the initial lesion. To capture these complex, temporal changes, we conducted a systematic investigation, leading to the creation of this open-access resource designed to accelerate future mechanistic and translational research in SCI.
+Our research reveals that SCI triggers a cascade of systemic dysfunctions, impacting organs far beyond the initial lesion. To capture these complex, temporal changes, we conducted a systematic investigation, leading to the creation of this open-access resource designed to accelerate future mechanistic and translational research in SCI. To facilitate further exploration and hypothesis generation in the field, we have developed SCIGAMA (Spinal Cord Injury Gut Microbiome and Multi-Organ Gene Expression Atlas), an open-access resource that integrates over 2,000 samples across 15 time points and 14 organs.The SCIGAMA website is available at http://58.247.16.28:30080/SCIGAMA/index/homePage.
 
 ## 🗂️ Repository layout
 
@@ -103,6 +103,7 @@ This repository is licensed under the Creative Commons Attribution 4.0 Internati
 You can find the full license text in the `LICENSE` file at the repository root.
 
 Copyright (c) 2025 Magetutor. 
+
 
 
 
