@@ -1,0 +1,219 @@
+---
+title: "Supplementary Figure 2 R scripts combined"
+output: html_document
+---
+
+This R Markdown combines the R scripts under `scripts/Supplementary Figure 2` into one document. Each script is included as a separate R code chunk (full original contents).
+
+## A.R
+```{r C, echo=TRUE}
+rm(list = ls())
+load("data/A.RData")
+p1 <- ggplot(df_1,aes(Var1,Freq))+
+  #柱状堆积图
+  geom_col(fill = "#4DBBD5")+
+  #标题
+  labs(x=NULL,y=NULL,fill=NULL)+
+  geom_text(aes(label = Freq), position = position_stack(vjust = 0.5), hjust = 0.5)+
+  ggtitle("Ileum_down")+
+  #主题
+  theme_classic()+
+  theme(axis.text.x = element_text(color = "black",size=12,angle = 30,hjust = 1),
+        axis.text.y = element_text(color = "black",size=12,hjust = 1),
+        axis.line = element_line(color = "black",linewidth = 0.8),
+        axis.ticks.y = element_blank(),
+        axis.ticks.length = unit(-0.15, "cm"),
+        axis.ticks = element_line(color = "black",linewidth = 0.8),
+        legend.position = "right")+#图例设置
+  scale_y_continuous(expand = c(0,0))#设置刻度从0开始
+
+p2 <- ggplot(df_2,aes(Var1,Freq))+
+  #柱状堆积图
+  geom_col(fill = "#E64B35")+
+  #标题
+  labs(x=NULL,y=NULL,fill=NULL)+
+  geom_text(aes(label = Freq), position = position_stack(vjust = 0.5), hjust = 0.5)+
+  ggtitle("Ileum_up")+
+  #主题
+  theme_classic()+
+  theme(axis.text.x = element_text(color = "black",size=12,angle = 30,hjust = 1),
+        axis.text.y = element_text(color = "black",size=12,hjust = 1),
+        axis.line = element_line(color = "black",linewidth = 0.8),
+        axis.ticks.y = element_blank(),
+        axis.ticks.length = unit(-0.15, "cm"),
+        axis.ticks = element_line(color = "black",linewidth = 0.8),
+        legend.position = "right")+#图例设置
+  scale_y_continuous(expand = c(0,0))#设置刻度从0开始
+```
+
+## B.R
+
+```{r C, echo=TRUE}
+rm(list = ls())
+load("data/B.RData")
+p1 <- ggplot(df_1,aes(Var1,Freq))+
+  #柱状堆积图
+  geom_col(fill = "#4DBBD5")+
+  #标题
+  labs(x=NULL,y=NULL,fill=NULL)+
+  geom_text(aes(label = Freq), position = position_stack(vjust = 0.5), hjust = 0.5)+
+  ggtitle("Cecum_down")+
+  #主题
+  theme_classic()+
+  theme(axis.text.x = element_text(color = "black",size=12,angle = 30,hjust = 1),
+        axis.text.y = element_text(color = "black",size=12,hjust = 1),
+        axis.line = element_line(color = "black",linewidth = 0.8),
+        axis.ticks.y = element_blank(),
+        axis.ticks.length = unit(-0.15, "cm"),
+        axis.ticks = element_line(color = "black",linewidth = 0.8),
+        legend.position = "right")+#图例设置
+  scale_y_continuous(expand = c(0,0))#设置刻度从0开始
+
+p2 <- ggplot(df_2,aes(Var1,Freq))+
+  #柱状堆积图
+  geom_col(fill = "#E64B35")+
+  #标题
+  labs(x=NULL,y=NULL,fill=NULL)+
+  geom_text(aes(label = Freq), position = position_stack(vjust = 0.5), hjust = 0.5)+
+  ggtitle("Cecum_up")+
+  #主题
+  theme_classic()+
+  theme(axis.text.x = element_text(color = "black",size=12,angle = 30,hjust = 1),
+        axis.text.y = element_text(color = "black",size=12,hjust = 1),
+        axis.line = element_line(color = "black",linewidth = 0.8),
+        axis.ticks.y = element_blank(),
+        axis.ticks.length = unit(-0.15, "cm"),
+        axis.ticks = element_line(color = "black",linewidth = 0.8),
+        legend.position = "right")+#图例设置
+  scale_y_continuous(expand = c(0,0))#设置刻度从0开始
+
+```
+
+## C.R
+
+```{r C, echo=TRUE}
+rm(list = ls())
+load("data/")
+p1 <- ggplot(df_1,aes(Var1,Freq))+
+  #柱状堆积图
+  geom_col(fill = "#4DBBD5")+
+  #标题
+  labs(x=NULL,y=NULL,fill=NULL)+
+  geom_text(aes(label = Freq), position = position_stack(vjust = 0.5), hjust = 0.5)+
+  ggtitle("Colon_down")+
+  #主题
+  theme_classic()+
+  theme(axis.text.x = element_text(color = "black",size=12,angle = 30,hjust = 1),
+        axis.text.y = element_text(color = "black",size=12,hjust = 1),
+        axis.line = element_line(color = "black",linewidth = 0.8),
+        axis.ticks.y = element_blank(),
+        axis.ticks.length = unit(-0.15, "cm"),
+        axis.ticks = element_line(color = "black",linewidth = 0.8),
+        legend.position = "right")+#图例设置
+  scale_y_continuous(expand = c(0,0))#设置刻度从0开始
+
+p2 <- ggplot(df_2,aes(Var1,Freq))+
+  #柱状堆积图
+  geom_col(fill = "#E64B35")+
+  #标题
+  labs(x=NULL,y=NULL,fill=NULL)+
+  geom_text(aes(label = Freq), position = position_stack(vjust = 0.5), hjust = 0.5)+
+  ggtitle("Colon_up")+
+  #主题
+  theme_classic()+
+  theme(axis.text.x = element_text(color = "black",size=12,angle = 30,hjust = 1),
+        axis.text.y = element_text(color = "black",size=12,hjust = 1),
+        axis.line = element_line(color = "black",linewidth = 0.8),
+        axis.ticks.y = element_blank(),
+        axis.ticks.length = unit(-0.15, "cm"),
+        axis.ticks = element_line(color = "black",linewidth = 0.8),
+        legend.position = "right")+#图例设置
+  scale_y_continuous(expand = c(0,0))#设置刻度从0开始
+
+```
+
+## D-E.R
+
+```{r S1_F_G, echo=TRUE}
+############ 
+rm(list = ls())
+load("data/D.RData")
+p1 <- ggplot(Il_1,aes(x = group, y = s__Bacteroides_thetaiotaomicron, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="s__Bacteroides_thetaiotaomicron")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))  +
+  # 绘制连接平均值的线  
+  geom_line(data = Il_1_mean,
+            aes(x = group,
+                y = Value,
+                group = 1),
+            colour = "black",
+            size = 1,
+            position = position_dodge(width = 0.9))
+p1 
+p2 <- ggplot(Il_2,aes(x = group, y = s__Lactobacillus_acidophilus, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="s__Lactobacillus_acidophilus")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))  +
+  # 绘制连接平均值的线  
+  geom_line(data = Il_2_mean,
+            aes(x = group,
+                y = Value,
+                group = 1),
+            colour = "black",
+            size = 1,
+            position = position_dodge(width = 0.9))
+p2 
+load("data/E.RData")
+p1 <- ggplot(Co_1,aes(x = group, y = s__Bacteroides_thetaiotaomicron, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="s__Bacteroides_thetaiotaomicron")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))  +
+  # 绘制连接平均值的线  
+  geom_line(data = Co_1_mean,
+            aes(x = group,
+                y = Value,
+                group = 1),
+            colour = "black",
+            size = 1,
+            position = position_dodge(width = 0.9))
+p1
+p2 <- ggplot(Co_2,aes(x = group, y = s__Lactobacillus_acidophilus, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="s__Lactobacillus_acidophilus")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))  +
+  # 绘制连接平均值的线  
+  geom_line(data = Co_2_mean,
+            aes(x = group,
+                y = Value,
+                group = 1),
+            colour = "black",
+            size = 1,
+            position = position_dodge(width = 0.9))
+p2 
+```
+---

@@ -1,0 +1,137 @@
+---
+title: "Supplementary Figure 3 R scripts combined"
+output: html_document
+---
+
+## C.R + S3 A
+
+```{r C, echo=TRUE}
+####### 示例数据展示colon，其余器官进行替换数据既可
+rm(list = ls())
+library(ggplot2) 
+library(clusterProfiler) 
+library(GSVA)
+library(GSEABase) 
+library(dplyr) 
+library(data.table) 
+library(pheatmap)
+library(tidyverse)
+load("data/C.RData")
+pheatmap(gsva_result_colon,
+                color = colorRampPalette(c("#3672b6", "white", "#e92e22"))(100),
+                border="black",#边框颜色
+                main = "colon",#指定图表的标题
+                show_rownames = T,#是否展示行名
+                show_colnames = T,#是否展示列名
+                cexCol = 1,#指定列标签的缩放比例。
+                scale = 'row',
+                cluster_col=F,
+                cluster_row=F,
+                cellwidth = unit(0.5, "cm"),
+                cellheight = unit(0.5, "cm"),
+                border_color = "black",
+                angle_col = "45",
+                legend = T,
+                fontsize_row = 8,
+                fontsize_col = 8,
+                legend_breaks = c(-2, 0, 2))
+```
+
+## D.R + s3 B
+
+```{r D, echo=TRUE}
+rm(list = ls())
+library(tidyverse)
+############ 此处只展示Il6，其余基因可替换
+load("data/D.RData")
+ggplot(df_Il6, aes(x = group, y = num, color = organ, fill = organ)) +
+    geom_smooth(method = "loess",span = 0.4, se = TRUE, alpha = 0.3, linewidth = 1)  + 
+    theme_minimal(base_size = 14) +                     # 简洁主题，基础字体大小
+    theme(
+      panel.grid.major = element_line(color = "grey85", size = 0.3),  # 浅灰细网格线
+      panel.grid.minor = element_blank(),                 # 移除次网格线
+      axis.line = element_line(color = "black"),          # 黑色坐标轴
+      axis.ticks = element_line(color = "black"),         # 黑色刻度线
+      legend.position = "right",                          # 图例置右
+      legend.box = "vertical",                            # 图例垂直排列
+      legend.title = element_text(face = "bold"),         # 图例标题加粗
+      plot.title = element_text(hjust = 0.5, face = "bold", size = 16),  # 标题居中加粗
+      plot.subtitle = element_text(hjust = 0.5, size = 12)  # 副标题居中
+    ) +
+    # 设置颜色和标签
+    scale_color_manual(
+      values = c("spinal" = "#bce2b5", 
+                 "colon"  = "#fcb461",
+                 "small"  = "#fee0bf",
+                 "fat"    = "#dec2df",
+                 "marrow" = "#d69f9f"),
+      name = "Group"
+    ) +
+    scale_fill_manual(
+      values = c("spinal" = "#bce2b5", 
+                 "colon"  = "#fcb461",
+                 "small"  = "#fee0bf",
+                 "fat"    = "#dec2df",
+                 "marrow" = "#d69f9f"),
+      name = "Group",
+      guide = "none"   # 隐藏填充图例（避免与 color 图例重复）
+    )  +                      # 仅保留Group图例
+    labs(
+      title = "Il6",
+      y = "log2(TPM + 1)"
+    )+
+    theme_classic()+
+    scale_x_continuous(breaks = seq(1,14), labels = c("Control","SCI_0min","SCI_30min","SCI_1h","SCI_6h",
+                                                      "SCI_12h","SCI_1d","SCI_3d","SCI_5d","SCI_7d","SCI_14d",
+                                                      "SCI_1m","SCI_2m","SCI_3m"))
+  
+```
+
+## s3 D
+
+```{r D, echo=TRUE}
+rm(list = ls())
+library(tidyverse)
+############ 此处只展示Il6，其余基因可替换
+load("data/S3_D.RData")
+pheatmap(Co,
+         color = colorRampPalette(c("#3672b6", "white", "#e92e22"))(100),
+         border="black",#边框颜色
+         main = "Colon",#指定图表的标题
+         show_rownames = T,#是否展示行名
+         show_colnames = T,#是否展示列名
+         cexCol = 1,#指定列标签的缩放比例。
+         scale = 'row',
+         cluster_col=F,
+         cluster_rows=T,
+         cellwidth = unit(0.5, "cm"),
+         cellheight = unit(0.5, "cm"),
+         border_color = "black",
+         angle_col = "45",#指定列标签的角度。
+         legend = T,#指定是否显示图例。
+         fontsize_row = 8,#分别指定行标签和列标签的字体大小。
+         fontsize_col = 8,
+         legend_breaks = c(-2, 0, 2))
+
+pheatmap(Il,
+              color = colorRampPalette(c("#3672b6", "white", "#e92e22"))(100),
+              border="black",#边框颜色
+              main = "Intestine",#指定图表的标题
+              show_rownames = T,#是否展示行名
+              show_colnames = T,#是否展示列名
+              cexCol = 1,#指定列标签的缩放比例。
+              scale = 'row',
+              cluster_col=F,
+              cluster_rows=T,
+              cellwidth = unit(0.5, "cm"),
+              cellheight = unit(0.5, "cm"),
+              border_color = "black",
+              angle_col = "45",#指定列标签的角度。
+              legend = T,#指定是否显示图例。
+              fontsize_row = 8,#分别指定行标签和列标签的字体大小。
+              fontsize_col = 8,
+              legend_breaks = c(-2, 0, 2))
+  
+```
+
+
