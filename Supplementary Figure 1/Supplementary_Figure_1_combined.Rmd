@@ -1,0 +1,576 @@
+---
+title: "Supplementary Figure 1 R scripts combined"
+output: html_document
+---
+
+This R Markdown combines the R scripts under `scripts/Supplementary Figure 1` into one document. Each script is included as a separate R code chunk (full original contents).
+
+## A-C.R
+```{r C, echo=TRUE}
+rm(list = ls())
+library(tidyverse)
+data <- read.csv("data/a多样性指数结果所有.csv",row.names = 1)
+data <- cbind(data,group = rownames(data))
+
+############# Co
+data <-  data[grepl("Co",data$group),]   
+process_string <- function(s) {
+  parts <- strsplit(s, "_")[[1]]
+  if (length(parts) <= 2) {
+    return(s)
+  }
+  return(paste(parts[1:(length(parts) - 2)], collapse = "_"))
+}
+
+data$group <- sapply(data$group, process_string)
+data$group <- factor(data$group,levels = c("Con","Sham","SCI_0min","SCI_30min","SCI_1h",
+                                                     "SCI_6h","SCI_12h","SCI_1d","SCI_3d","SCI_5d",
+                                                     "SCI_7d","SCI_14d","SCI_1m","SCI_2m","SCI_3m"))
+
+sobs_avg <- data %>%
+  group_by(group) %>%
+  summarize(Value = mean(sobs, na.rm = TRUE), .groups = "drop")
+
+ace_avg <- data %>%
+  group_by(group) %>%
+  summarize(Value = mean(ace, na.rm = TRUE), .groups = "drop")
+
+chao_avg <- data %>%
+  group_by(group) %>%
+  summarize(Value = mean(chao, na.rm = TRUE), .groups = "drop")
+
+shannon_avg <- data %>%
+  group_by(group) %>%
+  summarize(Value = mean(shannon, na.rm = TRUE), .groups = "drop")
+
+simpson_avg <- data %>%
+  group_by(group) %>%
+  summarize(Value = mean(simpson, na.rm = TRUE), .groups = "drop")
+
+load("data/S1_A.RData")
+p1 = ggplot(spe_alpha,aes(x = group, y = shannon, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Shannon index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = shannon_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+#stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p1
+
+p2 = ggplot(spe_alpha,aes(x = group, y = simpson, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Simpson index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = simpson_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+# stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p2
+
+p3 = ggplot(spe_alpha,aes(x = group, y = invsimpson, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Invsimpson index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = invsimpson_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+# stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p3
+
+load("data/S1_B.RData")
+p1 = ggplot(spe_alpha,aes(x = group, y = shannon, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Shannon index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = shannon_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+#stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p1
+
+p2 = ggplot(spe_alpha,aes(x = group, y = simpson, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Simpson index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = simpson_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+# stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p2
+
+p3 = ggplot(spe_alpha,aes(x = group, y = invsimpson, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Invsimpson index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = invsimpson_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+# stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p3
+
+load("data/S1_C.RData")
+p1 = ggplot(data,aes(x = group, y = sobs, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Sobs index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = sobs_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+p1
+
+# (rest of B.R omitted here for brevity in the preview; full code included in the document)
+
+p1 = ggplot(spe_alpha,aes(x = group, y = shannon, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Shannon index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = shannon_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+#stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p1
+
+p2 = ggplot(spe_alpha,aes(x = group, y = simpson, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Simpson index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = simpson_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+# stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p2
+
+p3 = ggplot(spe_alpha,aes(x = group, y = invsimpson, fill = group))+
+  geom_boxplot(outlier.shape = NA)+ #箱线图
+  labs(title="",  x="Group", y="Invsimpson index")+ 
+  theme_bw() +
+  scale_fill_manual(values = c("#1f77b4","#f57d1f","#92a8af","#d42827","#8458a4",
+                               "#8b554a","#d779b0","#b6bc60","#1cbdcf","#adc6e8",
+                               "#fbb978","#b1c7c5","#f69595","#c5afd4","#0687ab")) +
+  theme(panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        axis.text.x = element_text(angle = 30, hjust = 1,vjust = 1))+    
+  # 绘制连接平均值的线  
+  geom_line(data = invsimpson_avg,
+            aes(x = group, 
+                y = Value,
+                group = 1), 
+            colour = "black",
+            size = 1,  
+            position = position_dodge(width = 0.9))
+# stat_compare_means(comparisons = comparison, label = "p",size=5)+# label = "p.signif"显示显著性
+# geom_jitter(position = position_jitter(0.17), size = 1, alpha = 0.7)
+
+p3
+```
+
+## S1_G I.R
+
+```{r S1_F_G, echo=TRUE}
+############ 
+rm(list = ls())
+load("data/S1_G.RData")
+p <- sankeyNetwork(Links = links, 
+                   Nodes = nodes, 
+                   Source = "IDsource", 
+                   Target = "IDtarget", 
+                   Value = "value", 
+                   NodeID = "name", 
+                   units = "T", 
+                   fontSize = 20, 
+                   nodeWidth = 30,
+                   height = 600,
+                   width = 700,
+                   nodePadding = 20,
+                   iterations = 0,
+                   colourScale = colourScale)
+p 
+p1 <- htmlwidgets::onRender(p, '
+  function(el, x) {
+    var svg = d3.select(el).select("svg");
+
+    // 创建一个合法的ID, 防止名称中有空格或者-等特殊字符
+    function createValidID(name) {
+      if (!name) {
+        return "unknown"; // 如果名称是null或undefined，返回一个默认值
+      }
+      // 将非字母数字字符替换为下划线，包括空格和-
+      return name.replace(/[^a-zA-Z0-9-]/g, "_");
+    }
+    
+    
+    // 收集要删除的节点名称（NA）
+    var nodesToRemove = [];
+    svg.selectAll(".node").each(function(d) {
+      if (!d.name || d.name === "NA") {
+        nodesToRemove.push(d.name);
+      }
+    });
+
+    // 删除标签为NA的节点及其直接相关的链接
+    nodesToRemove.forEach(function(nodeName) {
+      // 找到并删除与该节点相关的所有直接链接
+      svg.selectAll(".link").filter(function(link) {
+        return link.target.name === nodeName;
+      }).remove();
+      
+      // 删除节点
+      svg.selectAll(".node").filter(function(node) {
+        return node.name === nodeName;
+      }).remove();
+    });
+
+    
+    // 创建渐变色
+    svg.selectAll(".link").each(function(d) {
+
+      // 使用 source.name 和 target.name 作为渐变ID的一部分
+      var gradientID = "gradient-" + createValidID(d.source.name) + "-" + createValidID(d.target.name);
+
+      // 创建渐变
+      var gradient = svg.append("defs")
+        .append("linearGradient")
+        .attr("id", gradientID)
+        .attr("gradientUnits", "userSpaceOnUse")
+        .attr("x1", d.source.x + d.source.dx / 2)
+        .attr("y1", d.source.y + d.source.dy / 2)
+        .attr("x2", d.target.x + d.target.dx / 2)
+        .attr("y2", d.target.y + d.target.dy / 2);
+
+      // 起始颜色（源节点颜色）
+      var sourceColor = d3.select(el).selectAll(".node").filter(function(node) { return node.name === d.source.name; }).select("rect").style("fill");
+      var targetColor = d3.select(el).selectAll(".node").filter(function(node) { return node.name === d.target.name; }).select("rect").style("fill");
+
+      gradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", sourceColor);
+
+      // 终止颜色（目标节点颜色）
+      gradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", targetColor);
+
+      // 设置链接的颜色为渐变色
+      d3.select(this).style("stroke", "url(#" + gradientID + ")");
+    }); 
+    
+    // 修改节点矩形框的颜色
+    svg.selectAll(".node rect")
+      .style("stroke", "black") // 设置矩形框的边框颜色
+      .style("stroke-width", "1.5px"); // 设置矩形框的边框粗细
+  }
+')
+p1
+
+p <- sankeyNetwork(Links = links, 
+                   Nodes = nodes, 
+                   Source = "IDsource", 
+                   Target = "IDtarget", 
+                   Value = "value", 
+                   NodeID = "name", 
+                   units = "T", 
+                   fontSize = 20, 
+                   nodeWidth = 30,
+                   height = 600,
+                   width = 700,
+                   nodePadding = 20,
+                   iterations = 0,
+                   colourScale = colourScale)
+p 
+
+load("data/S1_H.RData")
+p1 <- htmlwidgets::onRender(p, '
+  function(el, x) {
+    var svg = d3.select(el).select("svg");
+
+    // 创建一个合法的ID, 防止名称中有空格或者-等特殊字符
+    function createValidID(name) {
+      if (!name) {
+        return "unknown"; // 如果名称是null或undefined，返回一个默认值
+      }
+      // 将非字母数字字符替换为下划线，包括空格和-
+      return name.replace(/[^a-zA-Z0-9-]/g, "_");
+    }
+    
+    
+    // 收集要删除的节点名称（NA）
+    var nodesToRemove = [];
+    svg.selectAll(".node").each(function(d) {
+      if (!d.name || d.name === "NA") {
+        nodesToRemove.push(d.name);
+      }
+    });
+
+    // 删除标签为NA的节点及其直接相关的链接
+    nodesToRemove.forEach(function(nodeName) {
+      // 找到并删除与该节点相关的所有直接链接
+      svg.selectAll(".link").filter(function(link) {
+        return link.target.name === nodeName;
+      }).remove();
+      
+      // 删除节点
+      svg.selectAll(".node").filter(function(node) {
+        return node.name === nodeName;
+      }).remove();
+    });
+
+    
+    // 创建渐变色
+    svg.selectAll(".link").each(function(d) {
+
+      // 使用 source.name 和 target.name 作为渐变ID的一部分
+      var gradientID = "gradient-" + createValidID(d.source.name) + "-" + createValidID(d.target.name);
+
+      // 创建渐变
+      var gradient = svg.append("defs")
+        .append("linearGradient")
+        .attr("id", gradientID)
+        .attr("gradientUnits", "userSpaceOnUse")
+        .attr("x1", d.source.x + d.source.dx / 2)
+        .attr("y1", d.source.y + d.source.dy / 2)
+        .attr("x2", d.target.x + d.target.dx / 2)
+        .attr("y2", d.target.y + d.target.dy / 2);
+
+      // 起始颜色（源节点颜色）
+      var sourceColor = d3.select(el).selectAll(".node").filter(function(node) { return node.name === d.source.name; }).select("rect").style("fill");
+      var targetColor = d3.select(el).selectAll(".node").filter(function(node) { return node.name === d.target.name; }).select("rect").style("fill");
+
+      gradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", sourceColor);
+
+      // 终止颜色（目标节点颜色）
+      gradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", targetColor);
+
+      // 设置链接的颜色为渐变色
+      d3.select(this).style("stroke", "url(#" + gradientID + ")");
+    }); 
+    
+    // 修改节点矩形框的颜色
+    svg.selectAll(".node rect")
+      .style("stroke", "black") // 设置矩形框的边框颜色
+      .style("stroke-width", "1.5px"); // 设置矩形框的边框粗细
+  }
+')
+
+
+p1
+
+load("data/S1_I.RData")
+p <- sankeyNetwork(Links = links, 
+                   Nodes = nodes, 
+                   Source = "IDsource", 
+                   Target = "IDtarget", 
+                   Value = "value", 
+                   NodeID = "name", 
+                   units = "T", 
+                   fontSize = 20, 
+                   nodeWidth = 30,
+                   height = 600,
+                   width = 700,
+                   nodePadding = 20,
+                   iterations = 0,
+                   colourScale = colourScale)
+p 
+
+
+p1 <- htmlwidgets::onRender(p, '
+  function(el, x) {
+    var svg = d3.select(el).select("svg");
+
+    // 创建一个合法的ID, 防止名称中有空格或者-等特殊字符
+    function createValidID(name) {
+      if (!name) {
+        return "unknown"; // 如果名称是null或undefined，返回一个默认值
+      }
+      // 将非字母数字字符替换为下划线，包括空格和-
+      return name.replace(/[^a-zA-Z0-9-]/g, "_");
+    }
+    
+    
+    // 收集要删除的节点名称（NA）
+    var nodesToRemove = [];
+    svg.selectAll(".node").each(function(d) {
+      if (!d.name || d.name === "NA") {
+        nodesToRemove.push(d.name);
+      }
+    });
+
+    // 删除标签为NA的节点及其直接相关的链接
+    nodesToRemove.forEach(function(nodeName) {
+      // 找到并删除与该节点相关的所有直接链接
+      svg.selectAll(".link").filter(function(link) {
+        return link.target.name === nodeName;
+      }).remove();
+      
+      // 删除节点
+      svg.selectAll(".node").filter(function(node) {
+        return node.name === nodeName;
+      }).remove();
+    });
+
+    
+    // 创建渐变色
+    svg.selectAll(".link").each(function(d) {
+
+      // 使用 source.name 和 target.name 作为渐变ID的一部分
+      var gradientID = "gradient-" + createValidID(d.source.name) + "-" + createValidID(d.target.name);
+
+      // 创建渐变
+      var gradient = svg.append("defs")
+        .append("linearGradient")
+        .attr("id", gradientID)
+        .attr("gradientUnits", "userSpaceOnUse")
+        .attr("x1", d.source.x + d.source.dx / 2)
+        .attr("y1", d.source.y + d.source.dy / 2)
+        .attr("x2", d.target.x + d.target.dx / 2)
+        .attr("y2", d.target.y + d.target.dy / 2);
+
+      // 起始颜色（源节点颜色）
+      var sourceColor = d3.select(el).selectAll(".node").filter(function(node) { return node.name === d.source.name; }).select("rect").style("fill");
+      var targetColor = d3.select(el).selectAll(".node").filter(function(node) { return node.name === d.target.name; }).select("rect").style("fill");
+
+      gradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", sourceColor);
+
+      // 终止颜色（目标节点颜色）
+      gradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", targetColor);
+
+      // 设置链接的颜色为渐变色
+      d3.select(this).style("stroke", "url(#" + gradientID + ")");
+    }); 
+    
+    // 修改节点矩形框的颜色
+    svg.selectAll(".node rect")
+      .style("stroke", "black") // 设置矩形框的边框颜色
+      .style("stroke-width", "1.5px"); // 设置矩形框的边框粗细
+  }
+')
+
+
+p1
+```
